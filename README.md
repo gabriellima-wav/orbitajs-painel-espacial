@@ -14,7 +14,7 @@ Painel informativo e visual sobre o universo, integrando dados públicos das API
 ---
 
 ## 📁 Estrutura de Pastas
-
+```
 📦 painel-espacial/
 ├── 📁 public/ # Arquivos públicos e index.html
 ├── 📁 src/
@@ -43,6 +43,7 @@ Painel informativo e visual sobre o universo, integrando dados públicos das API
 ├── package.json
 ├── tsconfig.json
 └── README.md
+```
 
 ---
 
