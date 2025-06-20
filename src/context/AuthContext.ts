@@ -1,15 +1,16 @@
-// context/AuthContext.ts
-import { createContext } from 'react';
+import { createContext, useContext } from "react";
+import type { User } from "firebase/auth";
 
-export type User = {
-  uid: string;
-  email: string;
-};
-
-export type AuthContextType = {
+export interface AuthContextType {
   user: User | null;
-  login: ({ email, senha }: { email: string; senha: string }) => void;
-  logout: () => void;
-};
+  loading: boolean;
+  logout: () => Promise<void>;
+}
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth precisa estar dentro do AuthContext.Provider");
+  return ctx;
+}

@@ -3,8 +3,8 @@ import React from 'react';
 const SpaceXLaunchesPage: React.FC = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the Dashboard!</p>
+      <h1>SpaceXLaunchesPage</h1>
+      <p>SpaceXLaunchesPage</p>
     </div>
   );
 };

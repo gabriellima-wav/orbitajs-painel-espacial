@@ -3,8 +3,7 @@ import React from 'react';
 const NotFoundPage: React.FC = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the Dashboard!</p>
+      <h1>Page Not Found</h1>
     </div>
   );
 };

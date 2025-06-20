@@ -3,8 +3,8 @@ import React from 'react';
 const NasaImagePage: React.FC = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the Dashboard!</p>
+      <h1>NasaImagePage</h1>
+      <p>NasaImagePage</p>
     </div>
   );
 };
