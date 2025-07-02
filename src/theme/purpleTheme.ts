@@ -1,33 +1,109 @@
 import { createTheme } from '@mui/material/styles';
+import { colors } from './tokens/colors';
+import { effects, spacing, typography } from './tokens';
 
 export const purpleTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#a855f7',
-      light: '#c084fc',
-      dark: '#7c3aed',
+      main: colors.purple[500],
+      light: colors.purple[400],
+      dark: colors.purple[600],
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#ec4899',
-      light: '#f472b6',
-      dark: '#db2777',
+      main: colors.pink[500],
+      light: colors.pink[500],
+      dark: colors.pink[600],
+      contrastText: '#ffffff',
     },
     background: {
-      default: '#0f0f23',
+      default: colors.dark[950],
       paper: 'rgba(168, 85, 247, 0.05)',
     },
     text: {
-      primary: '#ffffff',
-      secondary: '#e2e8f0',
+      primary: colors.dark[50],
+      secondary: colors.dark[200],
+    },
+    error: {
+      main: colors.semantic.error,
+    },
+    warning: {
+      main: colors.semantic.warning,
+    },
+    info: {
+      main: colors.semantic.info,
+    },
+    success: {
+      main: colors.semantic.success,
+    },
+    glass: {
+      primary: 'rgba(168, 85, 247, 0.08)',
+      secondary: 'rgba(168, 85, 247, 0.05)',
+      border: 'rgba(168, 85, 247, 0.15)',
     },
   },
+  custom: {
+    colors,
+    spacing,
+    effects,
+  },
+  typography: {
+    fontFamily: typography.fontFamily.primary,
+    h1: {
+      fontWeight: typography.fontWeight.bold,
+      fontSize: typography.fontSize['4xl'],
+    },
+    h2: {
+      fontWeight: typography.fontWeight.bold,
+      fontSize: typography.fontSize['3xl'],
+    },
+    h3: {
+      fontWeight: typography.fontWeight.semibold,
+      fontSize: typography.fontSize['2xl'],
+    },
+    body1: {
+      fontSize: typography.fontSize.base,
+    },
+    body2: {
+      fontSize: typography.fontSize.sm,
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '*': {
+          boxSizing: 'border-box',
+        },
+        html: {
+          scrollBehavior: 'smooth',
+        },
+        body: {
+          fontFamily: typography.fontFamily.primary,
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+        },
+        // Autofill styles
+        'input:-webkit-autofill': {
+          WebkitBoxShadow: `0 0 0 1000px ${colors.purple[500]}08 inset !important`,
+          WebkitTextFillColor: `${colors.dark[50]} !important`,
+        },
+      },
+    },
     MuiPaper: {
       styleOverrides: {
         root: {
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(168, 85, 247, 0.1)',
+          backdropFilter: effects.blur.lg,
+          border: `1px solid rgba(168, 85, 247, 0.1)`,
+          '&.glass': {
+            background: 'rgba(168, 85, 247, 0.08)',
+            backdropFilter: effects.blur.xl,
+            border: `1px solid rgba(168, 85, 247, 0.15)`,
+            boxShadow: effects.shadow.glass,
+          },
         },
       },
     },
@@ -35,14 +111,27 @@ export const purpleTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
+            backgroundColor: 'rgba(168, 85, 247, 0.08)',
+            backdropFilter: effects.blur.xl,
             '& fieldset': {
               borderColor: 'rgba(168, 85, 247, 0.2)',
+              transition: 'border-color 0.3s ease',
             },
             '&:hover fieldset': {
-              borderColor: '#a855f7',
+              borderColor: colors.purple[500],
             },
             '&.Mui-focused fieldset': {
-              borderColor: '#a855f7',
+              borderColor: colors.purple[500],
+              borderWidth: '2px',
+            },
+            '&.Mui-error fieldset': {
+              borderColor: colors.semantic.error,
+            },
+          },
+          '& .MuiInputLabel-root': {
+            color: colors.purple[500],
+            '&.Mui-focused': {
+              color: colors.purple[500],
             },
           },
         },
@@ -51,24 +140,77 @@ export const purpleTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '12px',
+          borderRadius: 12,
           textTransform: 'none',
-          fontWeight: 600,
+          fontWeight: typography.fontWeight.semibold,
+          fontSize: typography.fontSize.base,
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+          },
+        },
+        contained: {
+          boxShadow: effects.shadow.md,
+          '&:hover': {
+            boxShadow: effects.shadow.lg,
+          },
+        },
+        containedPrimary: {
+          background: effects.gradient.primary,
+          '&:hover': {
+            background: effects.gradient.primaryHover,
+          },
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
+          borderRadius: 12,
           '&.MuiAlert-standardError': {
             backgroundColor: 'rgba(244, 67, 54, 0.1)',
             border: '1px solid rgba(244, 67, 54, 0.3)',
+            backdropFilter: effects.blur.sm,
+          },
+          '&.MuiAlert-standardSuccess': {
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            border: '1px solid rgba(16, 185, 129, 0.3)',
+            backdropFilter: effects.blur.sm,
+          },
+          '&.MuiAlert-standardWarning': {
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            border: '1px solid rgba(245, 158, 11, 0.3)',
+            backdropFilter: effects.blur.sm,
+          },
+          '&.MuiAlert-standardInfo': {
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            border: '1px solid rgba(59, 130, 246, 0.3)',
+            backdropFilter: effects.blur.sm,
           },
         },
       },
     },
-  },
-  typography: {
-    fontFamily: '"Space Grotesk", sans-serif',
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            transform: 'scale(1.05)',
+          },
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            textDecoration: 'underline',
+            transform: 'translateY(-1px)',
+          },
+        },
+      },
+    },
   },
 });

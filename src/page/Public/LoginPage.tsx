@@ -134,6 +134,7 @@ const LoginPage: React.FC = () => {
               <TextField
                 fullWidth
                 label="Email"
+                variant="outlined"
                 name="email"
                 type="email"
                 value={formData.email}
@@ -148,7 +149,13 @@ const LoginPage: React.FC = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    background: "rgba(168, 85, 247, 0.08)",
+                    backdropFilter: "blur(25px)",
+                  },
+                  "& .MuiInputLabel-root": { color: "primary.main" },
+                }}
               />
               <TextField
                 fullWidth
@@ -179,7 +186,13 @@ const LoginPage: React.FC = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    background: "rgba(168, 85, 247, 0.08)",
+                    backdropFilter: "blur(25px)",
+                  },
+                  "& .MuiInputLabel-root": { color: "primary.main" },
+                }}
               />
               {error && <Alert severity="error">{error}</Alert>}
               <Button
