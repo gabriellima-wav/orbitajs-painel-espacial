@@ -1,25 +1,25 @@
-import { createTheme } from '@mui/material/styles';
-import { colors } from './tokens/colors';
-import { effects, spacing, typography } from './tokens';
+import { createTheme } from "@mui/material/styles";
+import { colors } from "./tokens/colors";
+import { effects, spacing, typography } from "./tokens";
 
 export const purpleTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
       main: colors.purple[500],
       light: colors.purple[400],
       dark: colors.purple[600],
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     secondary: {
       main: colors.pink[500],
       light: colors.pink[500],
       dark: colors.pink[600],
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     background: {
       default: colors.dark[950],
-      paper: 'rgba(168, 85, 247, 0.05)',
+      paper: "rgba(168, 85, 247, 0.05)",
     },
     text: {
       primary: colors.dark[50],
@@ -38,9 +38,9 @@ export const purpleTheme = createTheme({
       main: colors.semantic.success,
     },
     glass: {
-      primary: 'rgba(168, 85, 247, 0.08)',
-      secondary: 'rgba(168, 85, 247, 0.05)',
-      border: 'rgba(168, 85, 247, 0.15)',
+      primary: "rgba(168, 85, 247, 0.08)",
+      secondary: "rgba(168, 85, 247, 0.05)",
+      border: "rgba(168, 85, 247, 0.15)",
     },
   },
   custom: {
@@ -52,15 +52,15 @@ export const purpleTheme = createTheme({
     fontFamily: typography.fontFamily.primary,
     h1: {
       fontWeight: typography.fontWeight.bold,
-      fontSize: typography.fontSize['4xl'],
+      fontSize: typography.fontSize["4xl"],
     },
     h2: {
       fontWeight: typography.fontWeight.bold,
-      fontSize: typography.fontSize['3xl'],
+      fontSize: typography.fontSize["3xl"],
     },
     h3: {
       fontWeight: typography.fontWeight.semibold,
-      fontSize: typography.fontSize['2xl'],
+      fontSize: typography.fontSize["2xl"],
     },
     body1: {
       fontSize: typography.fontSize.base,
@@ -73,23 +73,43 @@ export const purpleTheme = createTheme({
     borderRadius: 12,
   },
   components: {
-    MuiCssBaseline: {
+    MuiTextField: {
       styleOverrides: {
-        '*': {
-          boxSizing: 'border-box',
-        },
-        html: {
-          scrollBehavior: 'smooth',
-        },
-        body: {
-          fontFamily: typography.fontFamily.primary,
-          WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale',
-        },
-        // Autofill styles
-        'input:-webkit-autofill': {
-          WebkitBoxShadow: `0 0 0 1000px ${colors.purple[500]}08 inset !important`,
-          WebkitTextFillColor: `${colors.dark[50]} !important`,
+        root: {
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "rgba(168, 85, 247, 0.08)", // Fundo translúcido
+            backdropFilter: effects.blur.xl,
+            color: "#ffffff", // Texto branco
+            "& fieldset": {
+              borderColor: "rgba(168, 85, 247, 0.2)",
+              transition: "border-color 0.3s ease",
+            },
+            "&:hover fieldset": {
+              borderColor: colors.purple[500],
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: colors.purple[500],
+              borderWidth: "2px",
+            },
+            "&.Mui-error fieldset": {
+              borderColor: colors.semantic.error,
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: colors.purple[500],
+            "&.Mui-focused": {
+              color: colors.purple[500],
+            },
+          },
+          // Cor do texto de entrada
+          "& .MuiOutlinedInput-input": {
+            color: "#ffffff", // Garante que o texto seja branco
+          },
+          // Placeholder
+          "& .MuiOutlinedInput-input::placeholder": {
+            color: "rgba(255, 255, 255, 0.5)",
+            opacity: 1,
+          },
         },
       },
     },
@@ -98,8 +118,8 @@ export const purpleTheme = createTheme({
         root: {
           backdropFilter: effects.blur.lg,
           border: `1px solid rgba(168, 85, 247, 0.1)`,
-          '&.glass': {
-            background: 'rgba(168, 85, 247, 0.08)',
+          "&.glass": {
+            background: "rgba(168, 85, 247, 0.08)",
             backdropFilter: effects.blur.xl,
             border: `1px solid rgba(168, 85, 247, 0.15)`,
             boxShadow: effects.shadow.glass,
@@ -107,57 +127,28 @@ export const purpleTheme = createTheme({
         },
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            backgroundColor: 'rgba(168, 85, 247, 0.08)',
-            backdropFilter: effects.blur.xl,
-            '& fieldset': {
-              borderColor: 'rgba(168, 85, 247, 0.2)',
-              transition: 'border-color 0.3s ease',
-            },
-            '&:hover fieldset': {
-              borderColor: colors.purple[500],
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: colors.purple[500],
-              borderWidth: '2px',
-            },
-            '&.Mui-error fieldset': {
-              borderColor: colors.semantic.error,
-            },
-          },
-          '& .MuiInputLabel-root': {
-            color: colors.purple[500],
-            '&.Mui-focused': {
-              color: colors.purple[500],
-            },
-          },
-        },
-      },
-    },
+    // Removed duplicate MuiTextField entry
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 12,
-          textTransform: 'none',
+          textTransform: "none",
           fontWeight: typography.fontWeight.semibold,
           fontSize: typography.fontSize.base,
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateY(-2px)",
           },
         },
         contained: {
           boxShadow: effects.shadow.md,
-          '&:hover': {
+          "&:hover": {
             boxShadow: effects.shadow.lg,
           },
         },
         containedPrimary: {
           background: effects.gradient.primary,
-          '&:hover': {
+          "&:hover": {
             background: effects.gradient.primaryHover,
           },
         },
@@ -167,24 +158,24 @@ export const purpleTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          '&.MuiAlert-standardError': {
-            backgroundColor: 'rgba(244, 67, 54, 0.1)',
-            border: '1px solid rgba(244, 67, 54, 0.3)',
+          "&.MuiAlert-standardError": {
+            backgroundColor: "rgba(244, 67, 54, 0.1)",
+            border: "1px solid rgba(244, 67, 54, 0.3)",
             backdropFilter: effects.blur.sm,
           },
-          '&.MuiAlert-standardSuccess': {
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.3)',
+          "&.MuiAlert-standardSuccess": {
+            backgroundColor: "rgba(16, 185, 129, 0.1)",
+            border: "1px solid rgba(16, 185, 129, 0.3)",
             backdropFilter: effects.blur.sm,
           },
-          '&.MuiAlert-standardWarning': {
-            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
+          "&.MuiAlert-standardWarning": {
+            backgroundColor: "rgba(245, 158, 11, 0.1)",
+            border: "1px solid rgba(245, 158, 11, 0.3)",
             backdropFilter: effects.blur.sm,
           },
-          '&.MuiAlert-standardInfo': {
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
+          "&.MuiAlert-standardInfo": {
+            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            border: "1px solid rgba(59, 130, 246, 0.3)",
             backdropFilter: effects.blur.sm,
           },
         },
@@ -193,9 +184,9 @@ export const purpleTheme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          transition: 'all 0.2s ease',
-          '&:hover': {
-            transform: 'scale(1.05)',
+          transition: "all 0.2s ease",
+          "&:hover": {
+            transform: "scale(1.05)",
           },
         },
       },
@@ -203,11 +194,11 @@ export const purpleTheme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          textDecoration: 'none',
-          transition: 'all 0.2s ease',
-          '&:hover': {
-            textDecoration: 'underline',
-            transform: 'translateY(-1px)',
+          textDecoration: "none",
+          transition: "all 0.2s ease",
+          "&:hover": {
+            textDecoration: "underline",
+            transform: "translateY(-1px)",
           },
         },
       },

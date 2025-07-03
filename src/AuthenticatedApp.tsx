@@ -5,18 +5,28 @@ import NasaImagePage from "./page/Auth/NasaImagePage";
 import SpaceXLaunchesPage from "./page/Auth/SpaceXLaunchesPage";
 import NotFoundPage from "./page/Auth/NotFoundPage";
 import { CustomThemeProvider } from "./theme";
+import { OrbitaHeader } from "./components/ui/OrbitaHeader";
+import { Box } from "@mui/material";
+import { OrbitaFooter } from "./components/ui/OrbitaFooter";
 
 export default function AuthenticatedApp() {
   return (
     <CustomThemeProvider>
-      <Routes>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/image-of-day" element={<NasaImagePage />} />
-        <Route path="/launches" element={<SpaceXLaunchesPage />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Box sx={{ minHeight: "100vh" }}>
+        {/* Header global em todas as páginas */}
+        <OrbitaHeader />
+        <Box sx={{ flex: 1 }}>
+          <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/image-of-day" element={<NasaImagePage />} />
+            <Route path="/launches" element={<SpaceXLaunchesPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <OrbitaFooter />
+        </Box>
+      </Box>
     </CustomThemeProvider>
   );
 }

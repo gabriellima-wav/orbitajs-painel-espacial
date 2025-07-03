@@ -11,7 +11,6 @@ import BackgroundStars from "../../components/BackgroundStars";
 import ApodCard from "../../components/dashboard/ApodCard";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import SpaceXLaunchCard from "../../components/dashboard/SpaceXLaunchCard";
-import StatsCard from "../../components/dashboard/StatsCard";
 import PlanetCarousel from "../../components/dashboard/PlanetCarousel";
 import planets from "../../components/dashboard/PlanetsList";
 
