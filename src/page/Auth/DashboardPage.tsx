@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// src/pages/Auth/DashboardPage.tsx
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -7,6 +8,8 @@ import {
   CircularProgress,
   Button,
 } from "@mui/material";
+import { Refresh } from "@mui/icons-material";
+
 import BackgroundStars from "../../components/BackgroundStars";
 import ApodCard from "../../components/dashboard/ApodCard";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
@@ -14,63 +17,40 @@ import SpaceXLaunchCard from "../../components/dashboard/SpaceXLaunchCard";
 import PlanetCarousel from "../../components/dashboard/PlanetCarousel";
 import planets from "../../components/dashboard/PlanetsList";
 
-// Tipos de dados simulados
-interface ApodData {
-  title: string;
-  explanation: string;
-  url: string;
-  media_type: string;
-  date: string;
-}
-
-interface SpaceXLaunch {
-  name: string;
-  date_utc: string;
-  details: string;
-  links: {
-    webcast: string;
-  };
-}
+import { useCountdown } from "../../hooks/useCountdown";
+import { useNasaApod } from "../../features/nasa/nasaService";
+import { useSpaceXLaunches } from "../../features/spacex/spaceXService";
 
 const DashboardPage: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [apodData, setApodData] = useState<ApodData | null>(null);
-  const [nextLaunch, setNextLaunch] = useState<SpaceXLaunch | null>(null);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
   const [user] = useState<{ name: string }>({ name: "Usuário" });
 
-  // Simulação de fetch de dados
-  const fetchData = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setApodData({
-        title: "Imagem do Dia",
-        explanation: "Descrição da imagem do dia",
-        url: "https://example.com/image.jpg",
-        media_type: "image",
-        date: "2025-06-20",
-      });
-      setNextLaunch({
-        name: "Lançamento SpaceX",
-        date_utc: "2025-06-21T00:00:00Z",
-        details: "Detalhes do lançamento",
-        links: { webcast: "https://youtube.com/live" },
-      });
-      setTimeLeft({ days: 1, hours: 2, minutes: 30, seconds: 15 });
-      setLoading(false);
-      setError(null);
-    }, 1000);
-  };
+  // Hooks das APIs
+  const {
+    data: apodData,
+    loading: apodLoading,
+    error: apodError,
+    refetch: refetchApod,
+  } = useNasaApod();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const {
+    nextLaunch,
+    loading: spaceXLoading,
+    error: spaceXError,
+    refetch: refetchSpaceX,
+  } = useSpaceXLaunches();
+
+  // Countdown para o próximo lançamento
+  const timeLeft = useCountdown(nextLaunch?.date_utc || null);
+
+  // Estados combinados
+  const loading = apodLoading || spaceXLoading;
+  const error = apodError || spaceXError;
+
+  // Função para recarregar todos os dados
+  const handleRefreshAll = () => {
+    refetchApod();
+    refetchSpaceX();
+  };
 
   // Função para formatar data
   const formatDate = (dateString: string) => {
@@ -83,10 +63,24 @@ const DashboardPage: React.FC = () => {
 
   if (loading) {
     return (
-      <Box className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
-        <CircularProgress size={60} sx={{ color: "primary.main", mb: 2 }} />
-        <Typography variant="h6" className="text-white font-space">
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background:
+            "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 2,
+        }}
+      >
+        <CircularProgress size={60} sx={{ color: "primary.main" }} />
+        <Typography variant="h6" color="white" textAlign="center">
           🚀 Carregando dados do espaço...
+        </Typography>
+        <Typography variant="body2" color="text.secondary" textAlign="center">
+          Conectando com NASA e SpaceX APIs
         </Typography>
       </Box>
     );
@@ -94,18 +88,36 @@ const DashboardPage: React.FC = () => {
 
   if (error) {
     return (
-      <Box className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
-        <Typography variant="h5" className="text-red-400 mb-4">
-          ⚠️ {error}
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background:
+            "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 3,
+          p: 4,
+        }}
+      >
+        <Typography variant="h5" color="error.main" textAlign="center">
+          ⚠️ Erro ao carregar dados
+        </Typography>
+        <Typography variant="body1" color="text.secondary" textAlign="center">
+          {error}
         </Typography>
         <Button
           variant="contained"
-          onClick={fetchData}
+          onClick={handleRefreshAll}
+          startIcon={<Refresh />}
           sx={{
             background: "linear-gradient(45deg, #a855f7, #ec4899)",
             "&:hover": {
               background: "linear-gradient(45deg, #9333ea, #db2777)",
+              transform: "translateY(-2px)",
             },
+            transition: "all 0.3s ease",
           }}
         >
           Tentar Novamente
@@ -115,29 +127,48 @@ const DashboardPage: React.FC = () => {
   }
 
   return (
-    <Box className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 font-sans relative">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+        position: "relative",
+      }}
+    >
       <BackgroundStars />
-      <Container maxWidth="xl" className="relative z-10 py-8">
+      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1, py: 4 }}>
         <DashboardHeader
           userName={user.name || "Usuário"}
-          onRefresh={fetchData}
+          onRefresh={handleRefreshAll}
           isLoading={loading}
         />
 
         <Grid container spacing={4}>
           <Grid item xs={12} lg={6}>
-            {apodData && (
+            {apodData ? (
               <ApodCard apodData={apodData} formatDate={formatDate} />
+            ) : (
+              <Box p={3} textAlign="center">
+                <Typography color="text.secondary">
+                  Dados da NASA indisponíveis
+                </Typography>
+              </Box>
             )}
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            {nextLaunch && (
+            {nextLaunch ? (
               <SpaceXLaunchCard
                 nextLaunch={nextLaunch}
                 formatDate={formatDate}
                 timeLeft={timeLeft}
               />
+            ) : (
+              <Box p={3} textAlign="center">
+                <Typography color="text.secondary">
+                  Nenhum lançamento programado
+                </Typography>
+              </Box>
             )}
           </Grid>
 

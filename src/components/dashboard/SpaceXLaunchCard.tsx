@@ -9,12 +9,14 @@ import { Launch, Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 interface SpaceXLaunchCardProps {
-  nextLaunch: {
+ nextLaunch: {
     name: string;
     date_utc: string;
-    details: string;
+    details: string | null; // ← Permite null
     links: {
-      webcast: string;
+      webcast: string | null; // ← Permite null
+      wikipedia?: string | null;
+      article?: string | null;
     };
   } | null;
   formatDate: (date: string) => string;
