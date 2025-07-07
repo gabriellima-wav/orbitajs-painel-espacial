@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Container,
   Typography,
@@ -21,9 +21,9 @@ import planets from "../../components/dashboard/PlanetsList";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useNasaApod } from "../../features/nasa/nasaService";
 import { useSpaceXLaunches } from "../../features/spacex/spaceXService";
+import ApiStatusChecker from "../../utils/ApiStatusChecker";
 
 const DashboardPage: React.FC = () => {
-  const [user] = useState<{ name: string }>({ name: "Usuário" });
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -140,11 +140,7 @@ const DashboardPage: React.FC = () => {
     >
       <BackgroundStars />
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1, py: 4 }}>
-        <DashboardHeader
-          userName={user.name || "Usuário"}
-          onRefresh={handleRefreshAll}
-          isLoading={loading}
-        />
+        <DashboardHeader />
 
         <Stack direction={isMdUp ? "row" : "column"} spacing={4} sx={{ mb: 4 }}>
           <Box flex={1}>
@@ -180,6 +176,7 @@ const DashboardPage: React.FC = () => {
           <PlanetCarousel planets={planets} />
         </Box>
       </Container>
+      <ApiStatusChecker />
     </Box>
   );
 };

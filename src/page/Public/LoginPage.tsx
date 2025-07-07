@@ -90,7 +90,7 @@ const LoginPage: React.FC = () => {
               mb: 1,
             }}
           >
-            Bem-vindo de volta!
+            Bem-vindo!
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Faça login para acessar seu dashboard espacial

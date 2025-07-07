@@ -8,16 +8,17 @@ import { CustomThemeProvider } from "./theme";
 import { OrbitaHeader } from "./components/ui/OrbitaHeader";
 import { Box } from "@mui/material";
 import { OrbitaFooter } from "./components/ui/OrbitaFooter";
+import UserProfilePage from "./page/Auth/UserProfilePage";
 
 export default function AuthenticatedApp() {
   return (
     <CustomThemeProvider>
       <Box sx={{ minHeight: "100vh" }}>
-        {/* Header global em todas as páginas */}
         <OrbitaHeader />
         <Box sx={{ flex: 1 }}>
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/profile" element={<UserProfilePage />} />
             <Route path="/image-of-day" element={<NasaImagePage />} />
             <Route path="/launches" element={<SpaceXLaunchesPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />

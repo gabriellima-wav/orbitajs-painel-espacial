@@ -15,6 +15,37 @@ interface PlanetCarouselProps {
 const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
+  React.useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    const scrollSpeed = 0.5; 
+
+    const animate = () => {
+      if (scrollContainer) {
+        const { scrollLeft, scrollWidth } = scrollContainer;
+
+ 
+        const halfWidth = scrollWidth / 2;
+        if (scrollLeft >= halfWidth) {
+          scrollContainer.scrollLeft = scrollLeft - halfWidth;
+        } else {
+          scrollContainer.scrollLeft += scrollSpeed;
+        }
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, []);
+
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -36,28 +67,24 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
         sx={{
           display: "flex",
           overflowX: "auto",
-          scrollSnapType: "x mandatory",
           gap: 2,
           px: 1,
           scrollbarWidth: "none",
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {planets.map((planet, index) => (
+        {[...planets, ...planets].map((planet, index) => (
           <Box
-            key={index}
+            key={`${planet.title}-${index}`}
             sx={{
               minWidth: { xs: 220, sm: 250, md: 280 },
               flex: "0 0 auto",
-              scrollSnapAlign: "center",
             }}
           >
             <PlanetCard {...planet} />
           </Box>
         ))}
       </Box>
-
-      {/* Setas para rolar (sempre visíveis) */}
       <IconButton
         onClick={() => scroll("left")}
         sx={{
@@ -105,17 +132,15 @@ const PlanetCard: React.FC<Planet> = ({ icon, title, subtitle }) => (
       },
     }}
   >
-   <Typography
-  variant="h2"
-  sx={{
-    mb: 2,
-    display: "inline-block",
-    animation: "spin-cyclic 3s linear infinite",
-  }}
->
-  {icon}
-</Typography>
-
+    <Typography
+      variant="h2"
+      sx={{
+        mb: 2,
+        display: "inline-block",
+      }}
+    >
+      {icon}
+    </Typography>
     <Typography variant="h6" sx={{ color: "white", mb: 1 }}>
       {title}
     </Typography>
