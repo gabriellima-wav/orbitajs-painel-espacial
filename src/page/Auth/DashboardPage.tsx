@@ -21,7 +21,6 @@ import planets from "../../components/dashboard/PlanetsList";
 import { useCountdown } from "../../hooks/useCountdown";
 import { useNasaApod } from "../../features/nasa/nasaService";
 import { useSpaceXLaunches } from "../../features/spacex/spaceXService";
-import ApiStatusChecker from "../../utils/ApiStatusChecker";
 
 const DashboardPage: React.FC = () => {
   const theme = useTheme();
@@ -176,7 +175,6 @@ const DashboardPage: React.FC = () => {
           <PlanetCarousel planets={planets} />
         </Box>
       </Container>
-      <ApiStatusChecker />
     </Box>
   );
 };

@@ -9,12 +9,14 @@ import { OrbitaHeader } from "./components/ui/OrbitaHeader";
 import { Box } from "@mui/material";
 import { OrbitaFooter } from "./components/ui/OrbitaFooter";
 import UserProfilePage from "./page/Auth/UserProfilePage";
+import NavBar from "./components/navigation/NavBar";
 
 export default function AuthenticatedApp() {
   return (
     <CustomThemeProvider>
       <Box sx={{ minHeight: "100vh" }}>
         <OrbitaHeader />
+         <NavBar />
         <Box sx={{ flex: 1 }}>
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />

@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, IconButton, Typography } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 
 interface Planet {
   icon: string;
@@ -20,13 +19,12 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
     if (!scrollContainer) return;
 
     let animationId: number;
-    const scrollSpeed = 0.5; 
+    const scrollSpeed = 0.5;
 
     const animate = () => {
       if (scrollContainer) {
         const { scrollLeft, scrollWidth } = scrollContainer;
 
- 
         const halfWidth = scrollWidth / 2;
         if (scrollLeft >= halfWidth) {
           scrollContainer.scrollLeft = scrollLeft - halfWidth;
@@ -45,20 +43,6 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
       }
     };
   }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollAmount = clientWidth * 0.8;
-      scrollRef.current.scrollTo({
-        left:
-          direction === "left"
-            ? scrollLeft - scrollAmount
-            : scrollLeft + scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <Box sx={{ position: "relative", width: "100%", py: 2 }}>
@@ -85,32 +69,6 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
           </Box>
         ))}
       </Box>
-      <IconButton
-        onClick={() => scroll("left")}
-        sx={{
-          position: "absolute",
-          left: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          zIndex: 1,
-        }}
-      >
-        <ChevronLeft />
-      </IconButton>
-      <IconButton
-        onClick={() => scroll("right")}
-        sx={{
-          position: "absolute",
-          right: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          zIndex: 1,
-        }}
-      >
-        <ChevronRight />
-      </IconButton>
     </Box>
   );
 };

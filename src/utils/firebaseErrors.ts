@@ -1,4 +1,3 @@
-// src/utils/firebaseErrors.ts
 export function getFirebaseErrorMessage(code: string): string {
   switch (code) {
     case "auth/invalid-email":
