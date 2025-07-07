@@ -1,12 +1,13 @@
-// src/pages/Auth/DashboardPage.tsx
 import React, { useState } from "react";
 import {
   Container,
-  Grid,
   Typography,
   Box,
   CircularProgress,
   Button,
+  Stack,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Refresh } from "@mui/icons-material";
 
@@ -23,6 +24,8 @@ import { useSpaceXLaunches } from "../../features/spacex/spaceXService";
 
 const DashboardPage: React.FC = () => {
   const [user] = useState<{ name: string }>({ name: "Usuário" });
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   // Hooks das APIs
   const {
@@ -143,8 +146,8 @@ const DashboardPage: React.FC = () => {
           isLoading={loading}
         />
 
-        <Grid container spacing={4}>
-          <Grid item xs={12} lg={6}>
+        <Stack direction={isMdUp ? "row" : "column"} spacing={4} sx={{ mb: 4 }}>
+          <Box flex={1}>
             {apodData ? (
               <ApodCard apodData={apodData} formatDate={formatDate} />
             ) : (
@@ -154,9 +157,9 @@ const DashboardPage: React.FC = () => {
                 </Typography>
               </Box>
             )}
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} lg={6}>
+          <Box flex={1}>
             {nextLaunch ? (
               <SpaceXLaunchCard
                 nextLaunch={nextLaunch}
@@ -170,12 +173,12 @@ const DashboardPage: React.FC = () => {
                 </Typography>
               </Box>
             )}
-          </Grid>
+          </Box>
+        </Stack>
 
-          <Grid item xs={12}>
-            <PlanetCarousel planets={planets} />
-          </Grid>
-        </Grid>
+        <Box mt={4}>
+          <PlanetCarousel planets={planets} />
+        </Box>
       </Container>
     </Box>
   );

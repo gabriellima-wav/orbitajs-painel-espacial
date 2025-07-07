@@ -1,17 +1,18 @@
-import { 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
-  type User
+  type User,
 } from "firebase/auth";
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../firebase/firebaseConfig";
+import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
 
 export function useFirebaseAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Monitora estado de autenticação
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
@@ -20,21 +21,43 @@ export function useFirebaseAuth() {
     return () => unsubscribe();
   }, []);
 
-  // Função de login
   const login = useCallback(async (email: string, password: string) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    setLoading(true);
+    setError(null);
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (err: unknown) {
+      if (
+        err &&
+        typeof err === "object" &&
+        err !== null &&
+        "code" in err &&
+        typeof (err as { code: unknown }).code === "string"
+      ) {
+        setError(getFirebaseErrorMessage((err as { code: string }).code));
+      } else {
+        setError("Ocorreu um erro inesperado. Tente novamente.");
+      }
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // Função de logout
   const logout = useCallback(async () => {
     await signOut(auth);
   }, []);
 
-  return { 
-    user, 
+  return {
+    user,
     loading,
+    error,
     login,
-    logout
+    logout,
   };
 }

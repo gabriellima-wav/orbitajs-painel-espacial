@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-
+import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
 
 export function useFirebaseRegister() {
   const [error, setError] = useState<string | null>(null);
@@ -12,20 +12,16 @@ export function useFirebaseRegister() {
       setLoading(true);
       setError(null);
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         if (displayName) {
           await updateProfile(userCredential.user, { displayName });
         }
         return userCredential.user;
       } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
+        if (err && typeof err === "object" && err !== null && "code" in err && typeof (err as { code: unknown }).code === "string") {
+          setError(getFirebaseErrorMessage((err as { code: string }).code));
         } else {
-          setError("An unknown error occurred.");
+          setError("Ocorreu um erro inesperado. Tente novamente.");
         }
         throw err;
       } finally {
