@@ -15,6 +15,7 @@ import {
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { navItems } from "./navItems";
+import LogoutButton from "../LogoutButton";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -60,6 +61,10 @@ export default function NavBar() {
             >
               <MenuIcon />
             </IconButton>
+            
+           
+            <LogoutButton />
+            
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -103,28 +108,51 @@ export default function NavBar() {
       }}
     >
       <Container maxWidth="xl">
-        <Tabs
-          value={currentTab >= 0 ? currentTab : false}
-          onChange={handleTabChange}
-            variant="fullWidth"
-        >
-          {navItems.map((item) => (
-            <Tab
-              key={item.path}
-              label={item.label}
-              icon={item.icon}
-              iconPosition="start"
-              sx={{
-                gap: 1,
-                "&:hover": {
-                  color: "primary.light",
-                  transform: "translateY(-1px)",
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Tabs
+            value={currentTab >= 0 ? currentTab : false}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons={false}
+            sx={{
+              flex: 1,
+              "& .MuiTab-root": {
+                color: "text.secondary",
+                minHeight: 64,
+                textTransform: "none",
+                fontSize: "1rem",
+                fontWeight: 500,
+                "&.Mui-selected": {
+                  color: "primary.main",
                 },
-                transition: "all 0.2s ease",
-              }}
-            />
-          ))}
-        </Tabs>
+              },
+              "& .MuiTabs-indicator": {
+                backgroundColor: "primary.main",
+                height: 3,
+              },
+            }}
+          >
+            {navItems.map((item) => (
+              <Tab
+                key={item.path}
+                label={item.label}
+                icon={item.icon}
+                iconPosition="start"
+                sx={{
+                  gap: 1,
+                  "&:hover": {
+                    color: "primary.light",
+                    transform: "translateY(-1px)",
+                  },
+                  transition: "all 0.2s ease",
+                }}
+              />
+            ))}
+          </Tabs>
+          
+          {/* Botão de logout no desktop */}
+          <LogoutButton />
+        </Box>
       </Container>
     </Box>
   );

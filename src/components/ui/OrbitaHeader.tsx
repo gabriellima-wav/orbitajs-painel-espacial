@@ -7,31 +7,20 @@ import { useNavigate } from "react-router-dom";
 export const OrbitaHeader: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleLogoClick = () => {
-    navigate("/dashboard");
-  };
+  const handleLogoClick = () => navigate("/dashboard");
 
   return (
-   <Box 
-      textAlign="center" 
-      mb={3} 
-      position="relative"
-      sx={{
-        overflow: "hidden", // Previne rolagem
-        width: "100%",
-      }}
-    >
-
-      {/* Órbitas animadas COMPACTAS */}
+    <Box textAlign="center" mb={3} sx={{ overflow: "hidden", width: "100%" }}>
+      {/* Órbitas animadas */}
       <Box
         sx={{
           position: "relative",
-          width: "90px", // Reduzido de 140px
-          height: "90px", // Reduzido de 140px
-          margin: "0 auto 0.8rem", // Reduzido de 1rem
+          width: "90px",
+          height: "90px",
+          margin: "0 auto 0.8rem",
         }}
       >
-        {/* Planeta central MENOR */}
+        {/* Planeta central */}
         <Box
           onClick={handleLogoClick}
           sx={{
@@ -39,11 +28,11 @@ export const OrbitaHeader: React.FC = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "32px", // Reduzido de 45px
-            height: "32px", // Reduzido de 45px
+            width: "32px",
+            height: "32px",
             borderRadius: "50%",
             background: "linear-gradient(45deg, #a855f7, #ec4899)",
-            boxShadow: "0 0 15px rgba(168, 85, 247, 0.5)", // Reduzido
+            boxShadow: "0 0 15px rgba(168, 85, 247, 0.5)",
             animation: "pulse 2s ease-in-out infinite",
             display: "flex",
             alignItems: "center",
@@ -62,96 +51,43 @@ export const OrbitaHeader: React.FC = () => {
         >
           <Public
             sx={{
-              fontSize: "1.3rem", // Reduzido de 1.8rem
+              fontSize: "1.3rem",
               color: "white",
               animation: "rotate 10s linear infinite",
-              transition: "transform 0.2s ease",
             }}
           />
         </Box>
 
-        {/* Órbita 1 MENOR */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "60px", // Reduzido de 90px
-            height: "60px", // Reduzido de 90px
-            border: "1px solid rgba(168, 85, 247, 0.3)",
-            borderRadius: "50%",
-            animation: "orbit1 8s linear infinite",
+        {/* Órbita 1 */}
+        <OrbitBox
+          size="60px"
+          animation="orbit1 8s linear infinite"
+          satelliteProps={{
+            top: "-6px",
+            size: "12px",
+            bg: "#fbbf24",
+            content: "JS",
+            fontSize: "7px",
           }}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "-6px", // Reduzido de -8px
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "12px", // Reduzido de 16px
-              height: "12px", // Reduzido de 16px
-              borderRadius: "50%",
-              backgroundColor: "#fbbf24",
-              boxShadow: "0 0 8px #fbbf24",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "7px", // Reduzido de 10px
-              fontWeight: "bold",
-              color: "#000",
-              fontFamily: "monospace",
-            }}
-          >
-            JS
-          </Box>
-        </Box>
+        />
 
-        {/* Órbita 2 MENOR */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80px", // Reduzido de 120px
-            height: "80px", // Reduzido de 120px
-            border: "1px solid rgba(168, 85, 247, 0.2)",
-            borderRadius: "50%",
-            animation: "orbit2 12s linear infinite",
+        {/* Órbita 2 */}
+        <OrbitBox
+          size="80px"
+          animation="orbit2 12s linear infinite"
+          satelliteProps={{
+            top: "-7px",
+            size: "14px",
+            bg: "#10b981",
+            content: <Code sx={{ fontSize: "8px", color: "white" }} />,
           }}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "-7px", // Reduzido de -10px
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "14px", // Reduzido de 20px
-              height: "14px", // Reduzido de 20px
-              borderRadius: "50%",
-              backgroundColor: "#10b981",
-              boxShadow: "0 0 6px #10b981",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Code
-              sx={{
-                fontSize: "8px", // Reduzido de 12px
-                color: "white",
-              }}
-            />
-          </Box>
-        </Box>
+        />
       </Box>
 
-      {/* Título COMPACTO */}
+      {/* Título */}
       <Typography
         onClick={handleLogoClick}
-        variant="h4" // Mudado de h2 para h4
+        variant="h4"
         component="h1"
         fontWeight="bold"
         sx={{
@@ -159,11 +95,11 @@ export const OrbitaHeader: React.FC = () => {
           backgroundClip: "text",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          mb: 0.5, // Reduzido de 1
+          mb: 0.5,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 0.5, // Reduzido de 1
+          gap: 0.5,
           cursor: "pointer",
           transition: "all 0.3s ease",
           "&:hover": {
@@ -186,7 +122,7 @@ export const OrbitaHeader: React.FC = () => {
         </Typography>
       </Typography>
 
-      {/* DIVIDER com shimmer (mantido igual) */}
+      {/* Divider com shimmer */}
       <Box
         sx={{
           position: "relative",
@@ -248,3 +184,53 @@ export const OrbitaHeader: React.FC = () => {
     </Box>
   );
 };
+
+// Componente auxiliar para reduzir duplicação
+const OrbitBox: React.FC<{
+  size: string;
+  animation: string;
+  satelliteProps: {
+    top: string;
+    size: string;
+    bg: string;
+    content: React.ReactNode;
+    fontSize?: string;
+  };
+}> = ({ size, animation, satelliteProps }) => (
+  <Box
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: size,
+      height: size,
+      border: "1px solid rgba(168, 85, 247, 0.3)",
+      borderRadius: "50%",
+      animation,
+    }}
+  >
+    <Box
+      sx={{
+        position: "absolute",
+        top: satelliteProps.top,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: satelliteProps.size,
+        height: satelliteProps.size,
+        borderRadius: "50%",
+        backgroundColor: satelliteProps.bg,
+        boxShadow: `0 0 8px ${satelliteProps.bg}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: satelliteProps.fontSize || "8px",
+        fontWeight: "bold",
+        color: satelliteProps.fontSize ? "#000" : "white",
+        fontFamily: satelliteProps.fontSize ? "monospace" : "inherit",
+      }}
+    >
+      {satelliteProps.content}
+    </Box>
+  </Box>
+);
