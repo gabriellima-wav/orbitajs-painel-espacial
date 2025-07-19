@@ -21,7 +21,24 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Path Mapping */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/context/*": ["src/context/*"],
+      "@/features/*": ["src/features/*"],
+      "@/firebase/*": ["src/firebase/*"],
+      "@/theme/*": ["src/theme/*"],
+      "@/page/*": ["src/page/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/config": ["src/config"],
+      "@/types/*": ["src/types/*"]
+    }
   },
   "include": ["src"]
 }

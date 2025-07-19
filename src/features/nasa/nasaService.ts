@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { config } from "../../config";
+import { config } from '@/config';
+import { useEffect, useState } from 'react';
 
 export interface ApodData {
   title: string;
   explanation: string;
   url: string;
   hdurl?: string;
-  media_type: "image" | "video";
+  media_type: 'image' | 'video';
   date: string;
   copyright?: string;
 }
@@ -33,9 +33,9 @@ export const useNasaApod = () => {
       setData(apodData);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Erro ao carregar dados da NASA"
+        err instanceof Error ? err.message : 'Erro ao carregar dados da NASA'
       );
-      console.error("Erro na NASA APOD API:", err);
+      console.error('Erro na NASA APOD API:', err);
     } finally {
       setLoading(false);
     }

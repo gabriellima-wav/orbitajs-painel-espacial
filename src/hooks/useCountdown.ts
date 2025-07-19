@@ -1,5 +1,5 @@
 // src/hooks/useCountdown.ts
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 interface TimeLeft {
   days: number;
@@ -17,7 +17,9 @@ export const useCountdown = (targetDate: string | null) => {
   });
 
   useEffect(() => {
-    if (!targetDate) return;
+    if (!targetDate) {
+      return;
+    }
 
     const calculateTimeLeft = () => {
       const difference = new Date(targetDate).getTime() - new Date().getTime();

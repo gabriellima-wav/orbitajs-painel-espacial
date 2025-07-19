@@ -1,9 +1,9 @@
-import { useMemo } from "react";
-import AuthenticatedApp from "./AuthenticatedApp";
-import UnauthenticatedApp from "./UnauthenticatedApp";
-import { AuthContext } from "./context/AuthContext";
-import { useFirebaseAuth } from "./hooks/useFirebaseAuth";
-import { CircularProgress, Box, Typography } from "@mui/material";
+import AuthenticatedApp from '@/AuthenticatedApp';
+import UnauthenticatedApp from '@/UnauthenticatedApp';
+import { AuthContext } from '@/context/AuthContext';
+import { useFirebaseAuth } from '@/hooks/useFirebaseAuth';
+import { Box, CircularProgress, Typography } from '@mui/material';
+import { useMemo } from 'react';
 
 function App() {
   const auth = useFirebaseAuth();
@@ -22,17 +22,17 @@ function App() {
   const renderLoadingScreen = () => (
     <Box
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         background:
-          "linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)",
+          'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
       }}
     >
       <CircularProgress color="primary" size={60} />
-      <Typography variant="h6" sx={{ mt: 2, color: "white" }}>
+      <Typography variant="h6" sx={{ mt: 2, color: 'white' }}>
         Carregando dados espaciais...
       </Typography>
     </Box>

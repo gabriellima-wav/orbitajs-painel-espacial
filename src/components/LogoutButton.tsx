@@ -1,23 +1,24 @@
-// src/components/auth/LogoutButton.tsx
-import React, { useState } from "react";
+import { useFirebaseAuth } from '@/hooks/useFirebaseAuth';
+import { Logout, MoreVert, Person } from '@mui/icons-material';
 import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
   IconButton,
-  Menu,
-  MenuItem,
   ListItemIcon,
   ListItemText,
-  Divider,
+  Menu,
+  MenuItem,
   Typography,
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@mui/material";
-import { Logout, Person, MoreVert } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useFirebaseAuth } from "../hooks/useFirebaseAuth";
+} from '@mui/material';
+// src/components/auth/LogoutButton.tsx
+import type React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LogoutButton() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function LogoutButton() {
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    navigate('/profile');
     handleMenuClose();
   };
 
@@ -46,9 +47,9 @@ export default function LogoutButton() {
   const handleConfirmLogout = async () => {
     try {
       await logout();
-      navigate("/login");
+      navigate('/login');
     } catch (error) {
-      console.error("Erro ao fazer logout:", error);
+      console.error('Erro ao fazer logout:', error);
     }
     setConfirmOpen(false);
   };
@@ -62,9 +63,9 @@ export default function LogoutButton() {
       <IconButton
         onClick={handleMenuClick}
         sx={{
-          color: "primary.main",
-          "&:hover": {
-            backgroundColor: "rgba(168, 85, 247, 0.1)",
+          color: 'primary.main',
+          '&:hover': {
+            backgroundColor: 'rgba(168, 85, 247, 0.1)',
           },
         }}
       >
@@ -76,10 +77,10 @@ export default function LogoutButton() {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
         sx={{
-          "& .MuiPaper-root": {
-            background: "rgba(30, 41, 59, 0.95)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(168, 85, 247, 0.2)",
+          '& .MuiPaper-root': {
+            background: 'rgba(30, 41, 59, 0.95)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(168, 85, 247, 0.2)',
             minWidth: 200,
           },
         }}
@@ -89,21 +90,21 @@ export default function LogoutButton() {
             Logado como:
           </Typography>
           <Typography variant="body2" color="primary.main" fontWeight="bold">
-            {user?.displayName || user?.email || "Usuário"}
+            {user?.displayName || user?.email || 'Usuário'}
           </Typography>
         </Box>
-        
-        <Divider sx={{ borderColor: "rgba(168, 85, 247, 0.2)" }} />
-        
+
+        <Divider sx={{ borderColor: 'rgba(168, 85, 247, 0.2)' }} />
+
         <MenuItem onClick={handleProfileClick}>
-          <ListItemIcon sx={{ color: "primary.main" }}>
+          <ListItemIcon sx={{ color: 'primary.main' }}>
             <Person />
           </ListItemIcon>
           <ListItemText primary="Perfil" />
         </MenuItem>
-        
+
         <MenuItem onClick={handleLogoutClick}>
-          <ListItemIcon sx={{ color: "error.main" }}>
+          <ListItemIcon sx={{ color: 'error.main' }}>
             <Logout />
           </ListItemIcon>
           <ListItemText primary="Sair" />
@@ -115,24 +116,26 @@ export default function LogoutButton() {
         open={confirmOpen}
         onClose={handleCancelLogout}
         sx={{
-          "& .MuiDialog-paper": {
-            background: "rgba(30, 41, 59, 0.95)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(168, 85, 247, 0.2)",
+          '& .MuiDialog-paper': {
+            background: 'rgba(30, 41, 59, 0.95)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(168, 85, 247, 0.2)',
           },
         }}
       >
         <DialogTitle>Confirmar Logout</DialogTitle>
         <DialogContent>
-          <Typography>
-            Tem certeza que deseja sair da sua conta?
-          </Typography>
+          <Typography>Tem certeza que deseja sair da sua conta?</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelLogout} color="primary">
             Cancelar
           </Button>
-          <Button onClick={handleConfirmLogout} color="error" variant="contained">
+          <Button
+            onClick={handleConfirmLogout}
+            color="error"
+            variant="contained"
+          >
             Sair
           </Button>
         </DialogActions>

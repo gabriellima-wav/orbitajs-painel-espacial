@@ -1,30 +1,30 @@
-import React from "react";
+import { Refresh } from '@mui/icons-material';
 import {
-  Container,
-  Typography,
   Box,
-  CircularProgress,
   Button,
+  CircularProgress,
+  Container,
   Stack,
+  Typography,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import { Refresh } from "@mui/icons-material";
+} from '@mui/material';
+import type React from 'react';
 
-import BackgroundStars from "../../components/BackgroundStars";
-import ApodCard from "../../components/dashboard/ApodCard";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import SpaceXLaunchCard from "../../components/dashboard/SpaceXLaunchCard";
-import PlanetCarousel from "../../components/dashboard/PlanetCarousel";
-import planets from "../../components/dashboard/PlanetsList";
+import BackgroundStars from '@/components/BackgroundStars';
+import ApodCard from '@/components/dashboard/ApodCard';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import PlanetCarousel from '@/components/dashboard/PlanetCarousel';
+import planets from '@/components/dashboard/PlanetsList';
+import SpaceXLaunchCard from '@/components/dashboard/SpaceXLaunchCard';
 
-import { useCountdown } from "../../hooks/useCountdown";
-import { useNasaApod } from "../../features/nasa/nasaService";
-import { useSpaceXLaunches } from "../../features/spacex/spaceXService";
+import { useNasaApod } from '@/features/nasa/nasaService';
+import { useSpaceXLaunches } from '@/features/spacex/spaceXService';
+import { useCountdown } from '@/hooks/useCountdown';
 
 const DashboardPage: React.FC = () => {
   const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   // Hooks das APIs
   const {
@@ -56,10 +56,10 @@ const DashboardPage: React.FC = () => {
 
   // Função para formatar data
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("pt-BR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('pt-BR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 
@@ -67,17 +67,17 @@ const DashboardPage: React.FC = () => {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          minHeight: '100vh',
           background:
-            "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+            'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: 2,
         }}
       >
-        <CircularProgress size={60} sx={{ color: "primary.main" }} />
+        <CircularProgress size={60} sx={{ color: 'primary.main' }} />
         <Typography variant="h6" color="white" textAlign="center">
           🚀 Carregando dados do espaço...
         </Typography>
@@ -92,13 +92,13 @@ const DashboardPage: React.FC = () => {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          minHeight: '100vh',
           background:
-            "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+            'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: 3,
           p: 4,
         }}
@@ -114,12 +114,12 @@ const DashboardPage: React.FC = () => {
           onClick={handleRefreshAll}
           startIcon={<Refresh />}
           sx={{
-            background: "linear-gradient(45deg, #a855f7, #ec4899)",
-            "&:hover": {
-              background: "linear-gradient(45deg, #9333ea, #db2777)",
-              transform: "translateY(-2px)",
+            background: 'linear-gradient(45deg, #a855f7, #ec4899)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #9333ea, #db2777)',
+              transform: 'translateY(-2px)',
             },
-            transition: "all 0.3s ease",
+            transition: 'all 0.3s ease',
           }}
         >
           Tentar Novamente
@@ -131,17 +131,17 @@ const DashboardPage: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: '100vh',
         background:
-          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-        position: "relative",
+          'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+        position: 'relative',
       }}
     >
       <BackgroundStars />
-      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1, py: 4 }}>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1, py: 4 }}>
         <DashboardHeader />
 
-        <Stack direction={isMdUp ? "row" : "column"} spacing={4} sx={{ mb: 4 }}>
+        <Stack direction={isMdUp ? 'row' : 'column'} spacing={4} sx={{ mb: 4 }}>
           <Box flex={1}>
             {apodData ? (
               <ApodCard apodData={apodData} formatDate={formatDate} />

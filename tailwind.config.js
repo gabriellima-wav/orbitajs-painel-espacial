@@ -1,13 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  important: true, 
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  important: true,
   theme: {
     extend: {
       fontFamily: {
-        'space': ['Space Grotesk', 'sans-serif'],
+        space: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -40,16 +38,17 @@ module.exports = {
           800: '#9d174d',
           900: '#831843',
           950: '#500724',
-        }
+        },
       },
       backgroundImage: {
-        'space-gradient': 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
+        'space-gradient':
+          'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
         'purple-gradient': 'linear-gradient(45deg, #a855f7, #ec4899)',
         'purple-gradient-hover': 'linear-gradient(45deg, #9333ea, #db2777)',
       },
       animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
+        float: 'float 3s ease-in-out infinite',
+        glow: 'glow 2s ease-in-out infinite alternate',
       },
       keyframes: {
         float: {
@@ -57,14 +56,18 @@ module.exports = {
           '50%': { transform: 'translateY(-10px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px #a855f7, 0 0 10px #a855f7, 0 0 15px #a855f7' },
-          '100%': { boxShadow: '0 0 10px #a855f7, 0 0 20px #a855f7, 0 0 30px #a855f7' },
-        }
-      }
+          '0%': {
+            boxShadow: '0 0 5px #a855f7, 0 0 10px #a855f7, 0 0 15px #a855f7',
+          },
+          '100%': {
+            boxShadow: '0 0 10px #a855f7, 0 0 20px #a855f7, 0 0 30px #a855f7',
+          },
+        },
+      },
     },
   },
   plugins: [],
   corePlugins: {
     preflight: false,
   },
-}
+};

@@ -1,18 +1,18 @@
 // src/theme/types.ts
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Theme {
     custom: {
-      colors: typeof import("./tokens/colors").colors;
-      spacing: typeof import("./tokens/spacing").spacing;
-      effects: typeof import("./tokens/effects").effects;
+      colors: typeof import('./tokens/colors').colors;
+      spacing: typeof import('./tokens/spacing').spacing;
+      effects: typeof import('./tokens/effects').effects;
     };
   }
 
   interface ThemeOptions {
     custom?: {
-      colors?: typeof import("./tokens/colors").colors;
-      spacing?: typeof import("./tokens/spacing").spacing;
-      effects?: typeof import("./tokens/effects").effects;
+      colors?: typeof import('./tokens/colors').colors;
+      spacing?: typeof import('./tokens/spacing').spacing;
+      effects?: typeof import('./tokens/effects').effects;
     };
   }
 

@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { 
-  getStorage, 
-  ref, 
-  uploadBytes, 
-  getDownloadURL, 
-  deleteObject 
-} from "firebase/storage";
-import { updateProfile } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { auth } from '@/firebase/firebaseConfig';
+import { updateProfile } from 'firebase/auth';
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
+import { useCallback, useState } from 'react';
 
 export function useFirebaseStorage() {
   const [uploading, setUploading] = useState(false);
@@ -16,7 +17,7 @@ export function useFirebaseStorage() {
 
   const uploadAvatar = async (file: File): Promise<string | null> => {
     if (!auth.currentUser) {
-      setError("Usuário não autenticado");
+      setError('Usuário não autenticado');
       return null;
     }
 
@@ -36,28 +37,29 @@ export function useFirebaseStorage() {
         throw new Error('Arquivo deve ser uma imagem');
       }
 
-      if (file.size > 5 * 1024 * 1024) { // 5MB
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB
         throw new Error('Arquivo muito grande. Máximo 5MB');
       }
 
       // Upload do arquivo
       const snapshot = await uploadBytes(storageRef, file);
-      
+
       // Obter URL de download
       const downloadURL = await getDownloadURL(snapshot.ref);
-      
+
       // Atualizar perfil do usuário
       await updateProfile(auth.currentUser, {
-        photoURL: downloadURL
+        photoURL: downloadURL,
       });
 
       setUploadProgress(100);
       return downloadURL;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Erro ao fazer upload da imagem");
+        setError(err.message || 'Erro ao fazer upload da imagem');
       } else {
-        setError("Erro ao fazer upload da imagem");
+        setError('Erro ao fazer upload da imagem');
       }
       return null;
     } finally {
@@ -67,7 +69,7 @@ export function useFirebaseStorage() {
 
   const deleteAvatar = async (photoURL: string): Promise<boolean> => {
     if (!auth.currentUser) {
-      setError("Usuário não autenticado");
+      setError('Usuário não autenticado');
       return false;
     }
 
@@ -75,17 +77,17 @@ export function useFirebaseStorage() {
       const storage = getStorage();
       const photoRef = ref(storage, photoURL);
       await deleteObject(photoRef);
-      
+
       // Remover do perfil do usuário
       await updateProfile(auth.currentUser, {
-        photoURL: null
+        photoURL: null,
       });
       return true;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Erro ao deletar imagem");
+        setError(err.message || 'Erro ao deletar imagem');
       } else {
-        setError("Erro ao deletar imagem");
+        setError('Erro ao deletar imagem');
       }
       return false;
     }
@@ -97,6 +99,6 @@ export function useFirebaseStorage() {
     uploading,
     uploadProgress,
     error,
-    setError
+    setError,
   };
 }

@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import { auth } from '@/firebase/firebaseConfig';
+import { Email, Rocket } from '@mui/icons-material';
 import {
-  Box,
-  Container,
-  Paper,
-  TextField,
-  Button,
-  Typography,
   Alert,
+  Box,
+  Button,
   CircularProgress,
-  Stack,
+  Container,
   Link,
-} from "@mui/material";
-import { Email, Rocket } from "@mui/icons-material";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import type React from 'react';
+import { useState } from 'react';
 
 const ForgotPasswordPage: React.FC = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [fieldError, setFieldError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -37,20 +38,20 @@ const ForgotPasswordPage: React.FC = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       setSuccessMsg(
-        "Enviamos um e-mail com instruções para redefinir sua senha. Verifique sua caixa de entrada!"
+        'Enviamos um e-mail com instruções para redefinir sua senha. Verifique sua caixa de entrada!'
       );
     } catch (err: unknown) {
       // Tratamento básico de erros do Firebase
       const error = err as { code?: string };
       switch (error.code) {
-        case "auth/invalid-email":
-          setErrorMsg("O e-mail informado é inválido.");
+        case 'auth/invalid-email':
+          setErrorMsg('O e-mail informado é inválido.');
           break;
-        case "auth/user-not-found":
-          setErrorMsg("Nenhuma conta encontrada com esse e-mail.");
+        case 'auth/user-not-found':
+          setErrorMsg('Nenhuma conta encontrada com esse e-mail.');
           break;
         default:
-          setErrorMsg("Ocorreu um erro ao enviar o e-mail. Tente novamente.");
+          setErrorMsg('Ocorreu um erro ao enviar o e-mail. Tente novamente.');
       }
     } finally {
       setLoading(false);
@@ -60,60 +61,60 @@ const ForgotPasswordPage: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        backgroundImage: "url(/wallpaper.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: '100vh',
+        backgroundImage: 'url(/wallpaper.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         p: 2,
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
           content: '""',
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(15, 15, 35, 0.7)",
+          backgroundColor: 'rgba(15, 15, 35, 0.7)',
           zIndex: 0,
         },
       }}
     >
-      <Container maxWidth="sm" sx={{ position: "relative", zIndex: 2 }}>
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2 }}>
         <Paper
           elevation={24}
           sx={{
             p: 4,
             borderRadius: 4,
-            background: "rgba(168, 85, 247, 0.08)",
-            backdropFilter: "blur(25px)",
-            border: "1px solid rgba(168, 85, 247, 0.15)",
-            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)",
+            background: 'rgba(168, 85, 247, 0.08)',
+            backdropFilter: 'blur(25px)',
+            border: '1px solid rgba(168, 85, 247, 0.15)',
+            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
           }}
         >
           <Box textAlign="center" mb={4}>
             <Box
               sx={{
-                fontSize: "4rem",
+                fontSize: '4rem',
                 mb: 2,
-                animation: "float 3s ease-in-out infinite",
+                animation: 'float 3s ease-in-out infinite',
               }}
             >
-              <Rocket sx={{ fontSize: "inherit", color: "primary.main" }} />
+              <Rocket sx={{ fontSize: 'inherit', color: 'primary.main' }} />
             </Box>
             <Typography
               variant="h3"
               component="h1"
               fontWeight="bold"
               sx={{
-                background: "linear-gradient(45deg, #c084fc, #f472b6, #a855f7)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                background: 'linear-gradient(45deg, #c084fc, #f472b6, #a855f7)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
                 mb: 1,
               }}
             >
@@ -140,7 +141,7 @@ const ForgotPasswordPage: React.FC = () => {
                   startAdornment: <Email color="primary" sx={{ mr: 1 }} />,
                 }}
                 sx={{
-                  "& .MuiInputLabel-root": { color: "primary.main" },
+                  '& .MuiInputLabel-root': { color: 'primary.main' },
                 }}
               />
 
@@ -155,13 +156,13 @@ const ForgotPasswordPage: React.FC = () => {
                 disabled={loading}
                 sx={{
                   py: 1.5,
-                  background: "linear-gradient(45deg, #a855f7, #ec4899)",
-                  "&:hover": {
-                    background: "linear-gradient(45deg, #9333ea, #db2777)",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 10px 25px rgba(168, 85, 247, 0.4)",
+                  background: 'linear-gradient(45deg, #a855f7, #ec4899)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #9333ea, #db2777)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 10px 25px rgba(168, 85, 247, 0.4)',
                   },
-                  transition: "all 0.3s ease",
+                  transition: 'all 0.3s ease',
                 }}
                 startIcon={
                   loading ? (
@@ -171,20 +172,20 @@ const ForgotPasswordPage: React.FC = () => {
                   )
                 }
               >
-                {loading ? "Enviando..." : "Enviar link"}
+                {loading ? 'Enviando...' : 'Enviar link'}
               </Button>
             </Stack>
           </Box>
 
           <Box mt={4} textAlign="center">
             <Typography variant="body2" color="text.secondary">
-              Lembrou sua senha?{" "}
+              Lembrou sua senha?{' '}
               <Link
                 href="/login"
                 color="primary.main"
                 sx={{
-                  textDecoration: "none",
-                  "&:hover": { textDecoration: "underline" },
+                  textDecoration: 'none',
+                  '&:hover': { textDecoration: 'underline' },
                 }}
               >
                 Voltar ao login

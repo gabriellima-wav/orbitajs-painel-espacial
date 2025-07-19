@@ -1,18 +1,18 @@
-// src/components/profile/PasswordDialog.tsx
-import  { useState } from "react";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
   Button,
-  Stack,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
   InputAdornment,
-  CircularProgress,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+  Stack,
+  TextField,
+} from '@mui/material';
+// src/components/profile/PasswordDialog.tsx
+import { useState } from 'react';
 
 interface PasswordDialogProps {
   open: boolean;
@@ -44,26 +44,26 @@ export default function PasswordDialog({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const textFieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      backgroundColor: "rgba(255, 255, 255, 0.05)",
-      "& fieldset": {
-        borderColor: "rgba(168, 85, 247, 0.3)",
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      '& fieldset': {
+        borderColor: 'rgba(168, 85, 247, 0.3)',
       },
-      "&:hover fieldset": {
-        borderColor: "rgba(168, 85, 247, 0.5)",
+      '&:hover fieldset': {
+        borderColor: 'rgba(168, 85, 247, 0.5)',
       },
-      "&.Mui-focused fieldset": {
-        borderColor: "primary.main",
-      },
-    },
-    "& .MuiInputLabel-root": {
-      color: "rgba(255, 255, 255, 0.7)",
-      "&.Mui-focused": {
-        color: "primary.main",
+      '&.Mui-focused fieldset': {
+        borderColor: 'primary.main',
       },
     },
-    "& .MuiInputBase-input": {
-      color: "white",
+    '& .MuiInputLabel-root': {
+      color: 'rgba(255, 255, 255, 0.7)',
+      '&.Mui-focused': {
+        color: 'primary.main',
+      },
+    },
+    '& .MuiInputBase-input': {
+      color: 'white',
     },
   };
 
@@ -74,21 +74,19 @@ export default function PasswordDialog({
       maxWidth="sm"
       fullWidth
       sx={{
-        "& .MuiDialog-paper": {
-          background: "rgba(30, 41, 59, 0.95)",
-          backdropFilter: "blur(20px)",
-          border: "1px solid rgba(168, 85, 247, 0.2)",
+        '& .MuiDialog-paper': {
+          background: 'rgba(30, 41, 59, 0.95)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(168, 85, 247, 0.2)',
         },
       }}
     >
-      <DialogTitle sx={{ color: "white" }}>
-        Alterar Senha
-      </DialogTitle>
+      <DialogTitle sx={{ color: 'white' }}>Alterar Senha</DialogTitle>
       <DialogContent>
         <Stack spacing={3} sx={{ mt: 2 }}>
           <TextField
             label="Senha Atual"
-            type={showCurrentPassword ? "text" : "password"}
+            type={showCurrentPassword ? 'text' : 'password'}
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             fullWidth
@@ -97,7 +95,7 @@ export default function PasswordDialog({
                 <InputAdornment position="end">
                   <IconButton
                     onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                    sx={{ color: "primary.main" }}
+                    sx={{ color: 'primary.main' }}
                   >
                     {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
@@ -109,7 +107,7 @@ export default function PasswordDialog({
 
           <TextField
             label="Nova Senha"
-            type={showNewPassword ? "text" : "password"}
+            type={showNewPassword ? 'text' : 'password'}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             fullWidth
@@ -118,7 +116,7 @@ export default function PasswordDialog({
                 <InputAdornment position="end">
                   <IconButton
                     onClick={() => setShowNewPassword(!showNewPassword)}
-                    sx={{ color: "primary.main" }}
+                    sx={{ color: 'primary.main' }}
                   >
                     {showNewPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
@@ -130,7 +128,7 @@ export default function PasswordDialog({
 
           <TextField
             label="Confirmar Nova Senha"
-            type={showConfirmPassword ? "text" : "password"}
+            type={showConfirmPassword ? 'text' : 'password'}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             fullWidth
@@ -139,7 +137,7 @@ export default function PasswordDialog({
                 <InputAdornment position="end">
                   <IconButton
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    sx={{ color: "primary.main" }}
+                    sx={{ color: 'primary.main' }}
                   >
                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
@@ -151,10 +149,7 @@ export default function PasswordDialog({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={onClose}
-          sx={{ color: "rgba(255, 255, 255, 0.7)" }}
-        >
+        <Button onClick={onClose} sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
           Cancelar
         </Button>
         <Button
@@ -162,13 +157,17 @@ export default function PasswordDialog({
           disabled={loading}
           variant="contained"
           sx={{
-            background: "linear-gradient(45deg, #a855f7, #ec4899)",
-            "&:hover": {
-              background: "linear-gradient(45deg, #9333ea, #db2777)",
+            background: 'linear-gradient(45deg, #a855f7, #ec4899)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #9333ea, #db2777)',
             },
           }}
         >
-          {loading ? <CircularProgress size={20} color="inherit" /> : "Alterar Senha"}
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            'Alterar Senha'
+          )}
         </Button>
       </DialogActions>
     </Dialog>

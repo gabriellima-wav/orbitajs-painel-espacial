@@ -1,8 +1,13 @@
-// src/hooks/useFirestoreAvatar.ts
-import { useState } from "react";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import { updateProfile } from "firebase/auth";
-import { db, auth } from "../firebase/firebaseConfig";
+import { auth, db } from '@/firebase/firebaseConfig';
+import { updateProfile } from 'firebase/auth';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
+import { useCallback, useState } from 'react';
 
 export function useFirestoreAvatar() {
   const [uploading, setUploading] = useState(false);
@@ -10,7 +15,7 @@ export function useFirestoreAvatar() {
 
   const uploadAvatar = async (file: File): Promise<string | null> => {
     if (!auth.currentUser) {
-      setError("Usuário não autenticado");
+      setError('Usuário não autenticado');
       return null;
     }
 
@@ -19,13 +24,13 @@ export function useFirestoreAvatar() {
 
     try {
       // Validar arquivo
-      if (!file.type.startsWith("image/")) {
-        throw new Error("Arquivo deve ser uma imagem");
+      if (!file.type.startsWith('image/')) {
+        throw new Error('Arquivo deve ser uma imagem');
       }
 
       if (file.size > 2 * 1024 * 1024) {
         // 2MB (menor que Storage)
-        throw new Error("Arquivo muito grande. Máximo 2MB");
+        throw new Error('Arquivo muito grande. Máximo 2MB');
       }
 
       // Converter para Base64
@@ -33,13 +38,13 @@ export function useFirestoreAvatar() {
       const userId = auth.currentUser.uid;
 
       // Salvar no Firestore
-      const userDocRef = doc(db, "users", userId);
+      const userDocRef = doc(db, 'users', userId);
       await setDoc(
         userDocRef,
         {
           avatar: base64,
           avatarUpdatedAt: new Date(),
-          displayName: auth.currentUser.displayName || "",
+          displayName: auth.currentUser.displayName || '',
           email: auth.currentUser.email,
         },
         { merge: true }
@@ -53,9 +58,9 @@ export function useFirestoreAvatar() {
       return base64;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Erro ao fazer upload da imagem");
+        setError(err.message || 'Erro ao fazer upload da imagem');
       } else {
-        setError("Erro ao fazer upload da imagem");
+        setError('Erro ao fazer upload da imagem');
       }
       return null;
     } finally {
@@ -65,7 +70,7 @@ export function useFirestoreAvatar() {
 
   const getAvatar = async (userId: string): Promise<string | null> => {
     try {
-      const userDocRef = doc(db, "users", userId);
+      const userDocRef = doc(db, 'users', userId);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
@@ -74,9 +79,9 @@ export function useFirestoreAvatar() {
       return null;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Erro ao buscar avatar");
+        setError(err.message || 'Erro ao buscar avatar');
       } else {
-        setError("Erro ao buscar avatar");
+        setError('Erro ao buscar avatar');
       }
       return null;
     }
@@ -84,13 +89,13 @@ export function useFirestoreAvatar() {
 
   const deleteAvatar = async (): Promise<boolean> => {
     if (!auth.currentUser) {
-      setError("Usuário não autenticado");
+      setError('Usuário não autenticado');
       return false;
     }
 
     try {
       const userId = auth.currentUser.uid;
-      const userDocRef = doc(db, "users", userId);
+      const userDocRef = doc(db, 'users', userId);
 
       // Remover avatar do Firestore
       await updateDoc(userDocRef, {
@@ -106,9 +111,9 @@ export function useFirestoreAvatar() {
       return true;
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Erro ao deletar avatar");
+        setError(err.message || 'Erro ao deletar avatar');
       } else {
-        setError("Erro ao deletar avatar");
+        setError('Erro ao deletar avatar');
       }
       return false;
     }

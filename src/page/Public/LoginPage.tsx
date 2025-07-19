@@ -1,31 +1,32 @@
-// src/pages/LoginPage.tsx
-import React, { useState } from "react";
+import { AuthBackground } from '@/components/layout/AuthBackground';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { useFirebaseLogin } from '@/hooks/useFirebaseLogin';
 import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Alert,
-  IconButton,
-  InputAdornment,
-  Link,
-  CircularProgress,
-  Stack,
-} from "@mui/material";
-import {
-  Visibility,
-  VisibilityOff,
   Email,
   Lock,
   Rocket,
-} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useFirebaseLogin } from "../../hooks/useFirebaseLogin";
-import { AuthBackground } from "../../components/layout/AuthBackground";
-import { GlassCard } from "../../components/ui/GlassCard";
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+// src/pages/LoginPage.tsx
+import type React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({
     email: false,
@@ -55,10 +56,12 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
     try {
       await login(formData.email, formData.password);
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch {
       // O erro já é tratado pelo hook e exibido abaixo
     }
@@ -71,22 +74,22 @@ const LoginPage: React.FC = () => {
         <Box textAlign="center" mb={4}>
           <Box
             sx={{
-              fontSize: "4rem",
+              fontSize: '4rem',
               mb: 2,
-              animation: "float 3s ease-in-out infinite",
+              animation: 'float 3s ease-in-out infinite',
             }}
           >
-            <Rocket sx={{ fontSize: "inherit", color: "primary.main" }} />
+            <Rocket sx={{ fontSize: 'inherit', color: 'primary.main' }} />
           </Box>
           <Typography
             variant="h3"
             component="h1"
             fontWeight="bold"
             sx={{
-              background: "linear-gradient(45deg, #c084fc, #f472b6, #a855f7)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              background: 'linear-gradient(45deg, #c084fc, #f472b6, #a855f7)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
               mb: 1,
             }}
           >
@@ -119,19 +122,19 @@ const LoginPage: React.FC = () => {
                 ),
               }}
               sx={{
-                "& .MuiInputBase-root": {
-                  background: "transparent",
-                  backdropFilter: "none",
+                '& .MuiInputBase-root': {
+                  background: 'transparent',
+                  backdropFilter: 'none',
                 },
-                "& .MuiInputLabel-root": { color: "primary.main" },
+                '& .MuiInputLabel-root': { color: 'primary.main' },
               }}
             />
-            
+
             <TextField
               fullWidth
               label="Senha"
               name="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Sua senha"
@@ -149,7 +152,7 @@ const LoginPage: React.FC = () => {
                       onClick={() => setShowPassword((v) => !v)}
                       disabled={loading}
                       edge="end"
-                      sx={{ color: "primary.main" }}
+                      sx={{ color: 'primary.main' }}
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
@@ -157,11 +160,11 @@ const LoginPage: React.FC = () => {
                 ),
               }}
               sx={{
-                "& .MuiInputBase-root": {
-                  background: "transparent",
-                  backdropFilter: "none",
+                '& .MuiInputBase-root': {
+                  background: 'transparent',
+                  backdropFilter: 'none',
                 },
-                "& .MuiInputLabel-root": { color: "primary.main" },
+                '& .MuiInputLabel-root': { color: 'primary.main' },
               }}
             />
 
@@ -175,13 +178,13 @@ const LoginPage: React.FC = () => {
               disabled={loading}
               sx={{
                 py: 1.5,
-                background: "linear-gradient(45deg, #a855f7, #ec4899)",
-                "&:hover": {
-                  background: "linear-gradient(45deg, #9333ea, #db2777)",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 10px 25px rgba(168, 85, 247, 0.4)",
+                background: 'linear-gradient(45deg, #a855f7, #ec4899)',
+                '&:hover': {
+                  background: 'linear-gradient(45deg, #9333ea, #db2777)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 10px 25px rgba(168, 85, 247, 0.4)',
                 },
-                transition: "all 0.3s ease",
+                transition: 'all 0.3s ease',
               }}
               startIcon={
                 loading ? (
@@ -191,7 +194,7 @@ const LoginPage: React.FC = () => {
                 )
               }
             >
-              {loading ? "Entrando..." : "Entrar"}
+              {loading ? 'Entrando...' : 'Entrar'}
             </Button>
           </Stack>
         </Box>
@@ -199,13 +202,13 @@ const LoginPage: React.FC = () => {
         {/* Footer */}
         <Box mt={3} textAlign="center">
           <Typography variant="body2" color="text.secondary" mb={1}>
-            Não tem uma conta?{" "}
+            Não tem uma conta?{' '}
             <Link
               href="/register"
               color="primary.main"
               sx={{
-                textDecoration: "none",
-                "&:hover": { textDecoration: "underline" },
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'underline' },
               }}
             >
               Cadastre-se
@@ -216,8 +219,8 @@ const LoginPage: React.FC = () => {
               href="/forgot-password"
               color="primary.main"
               sx={{
-                textDecoration: "none",
-                "&:hover": { textDecoration: "underline" },
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'underline' },
               }}
             >
               Esqueceu a senha?

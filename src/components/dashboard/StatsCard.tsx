@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from '@mui/material';
 
 interface StatsCardProps {
   icon: React.ReactNode;
@@ -10,13 +10,13 @@ export default function StatsCard({ icon, title, subtitle }: StatsCardProps) {
   return (
     <Card
       sx={{
-        background: "rgba(168, 85, 247, 0.03)",
-        backdropFilter: "blur(10px)",
-        border: "1px solid rgba(168, 85, 247, 0.1)",
+        background: 'rgba(168, 85, 247, 0.03)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(168, 85, 247, 0.1)',
         borderRadius: 3,
-        transition: "transform 0.3s ease",
-        "&:hover": {
-          transform: "translateY(-3px)",
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: 'translateY(-3px)',
         },
       }}
     >

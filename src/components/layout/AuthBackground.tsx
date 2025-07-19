@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Container } from "@mui/material";
+import { Box, Container } from '@mui/material';
+import type React from 'react';
 
 interface AuthBackgroundProps {
   children: React.ReactNode;
@@ -8,34 +8,34 @@ interface AuthBackgroundProps {
 
 export const AuthBackground: React.FC<AuthBackgroundProps> = ({
   children,
-  backgroundImage = "/wallpaper.jpg",
+  backgroundImage = '/wallpaper.jpg',
 }) => (
   <Box
     sx={{
-      minHeight: "100vh",
+      minHeight: '100vh',
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       p: 2,
-      position: "relative",
-      overflow: "hidden",
-      "&::before": {
+      position: 'relative',
+      overflow: 'hidden',
+      '&::before': {
         content: '""',
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(15, 15, 35, 0.7)",
+        backgroundColor: 'rgba(15, 15, 35, 0.7)',
         zIndex: 0,
       },
     }}
   >
-    <Container maxWidth="sm" sx={{ position: "relative", zIndex: 2 }}>
+    <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2 }}>
       {children}
     </Container>
   </Box>

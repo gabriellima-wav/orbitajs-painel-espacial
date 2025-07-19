@@ -1,12 +1,12 @@
+import { auth } from '@/firebase/firebaseConfig';
+import { getFirebaseErrorMessage } from '@/utils/firebaseErrors';
 import {
+  type User,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  type User,
-} from "firebase/auth";
-import { useState, useEffect, useCallback } from "react";
-import { auth } from "../firebase/firebaseConfig";
-import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
+} from 'firebase/auth';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useFirebaseAuth() {
   const [user, setUser] = useState<User | null>(null);
@@ -34,14 +34,14 @@ export function useFirebaseAuth() {
     } catch (err: unknown) {
       if (
         err &&
-        typeof err === "object" &&
+        typeof err === 'object' &&
         err !== null &&
-        "code" in err &&
-        typeof (err as { code: unknown }).code === "string"
+        'code' in err &&
+        typeof (err as { code: unknown }).code === 'string'
       ) {
         setError(getFirebaseErrorMessage((err as { code: string }).code));
       } else {
-        setError("Ocorreu um erro inesperado. Tente novamente.");
+        setError('Ocorreu um erro inesperado. Tente novamente.');
       }
       throw err;
     } finally {

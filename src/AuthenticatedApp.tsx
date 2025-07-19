@@ -1,22 +1,22 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import DashboardPage from "./page/Auth/DashboardPage";
-import FavoritesPage from "./page/Auth/FavoritesPage";
-import NasaImagePage from "./page/Auth/NasaImagePage";
-import SpaceXLaunchesPage from "./page/Auth/SpaceXLaunchesPage";
-import NotFoundPage from "./page/Auth/NotFoundPage";
-import { CustomThemeProvider } from "./theme";
-import { OrbitaHeader } from "./components/ui/OrbitaHeader";
-import { Box } from "@mui/material";
-import { OrbitaFooter } from "./components/ui/OrbitaFooter";
-import UserProfilePage from "./page/Auth/UserProfilePage";
-import NavBar from "./components/navigation/NavBar";
+import NavBar from '@/components/navigation/NavBar';
+import { OrbitaFooter } from '@/components/ui/OrbitaFooter';
+import { OrbitaHeader } from '@/components/ui/OrbitaHeader';
+import DashboardPage from '@/page/Auth/DashboardPage';
+import FavoritesPage from '@/page/Auth/FavoritesPage';
+import NasaImagePage from '@/page/Auth/NasaImagePage';
+import NotFoundPage from '@/page/Auth/NotFoundPage';
+import SpaceXLaunchesPage from '@/page/Auth/SpaceXLaunchesPage';
+import UserProfilePage from '@/page/Auth/UserProfilePage';
+import { CustomThemeProvider } from '@/theme';
+import { Box } from '@mui/material';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 export default function AuthenticatedApp() {
   return (
     <CustomThemeProvider>
-      <Box sx={{ minHeight: "100vh" }}>
+      <Box sx={{ minHeight: '100vh' }}>
         <OrbitaHeader />
-         <NavBar />
+        <NavBar />
         <Box sx={{ flex: 1 }}>
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />

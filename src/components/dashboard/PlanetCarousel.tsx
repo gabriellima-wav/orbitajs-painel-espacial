@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
+import React from 'react';
 
 interface Planet {
   icon: string;
@@ -16,7 +16,9 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
 
   React.useEffect(() => {
     const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    if (!scrollContainer) {
+      return;
+    }
 
     let animationId: number;
     const scrollSpeed = 0.5;
@@ -45,16 +47,16 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
   }, []);
 
   return (
-    <Box sx={{ position: "relative", width: "100%", py: 2 }}>
+    <Box sx={{ position: 'relative', width: '100%', py: 2 }}>
       <Box
         ref={scrollRef}
         sx={{
-          display: "flex",
-          overflowX: "auto",
+          display: 'flex',
+          overflowX: 'auto',
           gap: 2,
           px: 1,
-          scrollbarWidth: "none",
-          "&::-webkit-scrollbar": { display: "none" },
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
         }}
       >
         {[...planets, ...planets].map((planet, index) => (
@@ -62,7 +64,7 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
             key={`${planet.title}-${index}`}
             sx={{
               minWidth: { xs: 220, sm: 250, md: 280 },
-              flex: "0 0 auto",
+              flex: '0 0 auto',
             }}
           >
             <PlanetCard {...planet} />
@@ -76,17 +78,17 @@ const PlanetCarousel: React.FC<PlanetCarouselProps> = ({ planets }) => {
 const PlanetCard: React.FC<Planet> = ({ icon, title, subtitle }) => (
   <Box
     sx={{
-      background: "rgba(168, 85, 247, 0.03)",
-      backdropFilter: "blur(10px)",
-      border: "1px solid rgba(168, 85, 247, 0.1)",
+      background: 'rgba(168, 85, 247, 0.03)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(168, 85, 247, 0.1)',
       borderRadius: 3,
       p: 3,
-      textAlign: "center",
-      height: "100%",
+      textAlign: 'center',
+      height: '100%',
       minHeight: 180,
-      transition: "transform 0.3s ease",
-      "&:hover": {
-        transform: "translateY(-3px)",
+      transition: 'transform 0.3s ease',
+      '&:hover': {
+        transform: 'translateY(-3px)',
       },
     }}
   >
@@ -94,15 +96,15 @@ const PlanetCard: React.FC<Planet> = ({ icon, title, subtitle }) => (
       variant="h2"
       sx={{
         mb: 2,
-        display: "inline-block",
+        display: 'inline-block',
       }}
     >
       {icon}
     </Typography>
-    <Typography variant="h6" sx={{ color: "white", mb: 1 }}>
+    <Typography variant="h6" sx={{ color: 'white', mb: 1 }}>
       {title}
     </Typography>
-    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
       {subtitle}
     </Typography>
   </Box>

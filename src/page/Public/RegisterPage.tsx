@@ -1,36 +1,37 @@
-import React, { useState } from "react";
+import { useFirebaseRegister } from '@/hooks/useFirebaseRegister';
 import {
-  Box,
-  Container,
-  Paper,
-  TextField,
-  Button,
-  Typography,
-  Alert,
-  IconButton,
-  InputAdornment,
-  Divider,
-  Chip,
-  CircularProgress,
-  Stack,
-} from "@mui/material";
-import {
-  Visibility,
-  VisibilityOff,
   Email,
   Lock,
   Person,
   Rocket,
-} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useFirebaseRegister } from "../../hooks/useFirebaseRegister";
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  Container,
+  Divider,
+  IconButton,
+  InputAdornment,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import type React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    displayName: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+    displayName: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({
@@ -50,10 +51,18 @@ const RegisterPage: React.FC = () => {
       confirmPassword: false,
       displayName: false,
     };
-    if (!formData.email) errors.email = true;
-    if (!formData.displayName) errors.displayName = true;
-    if (!formData.password) errors.password = true;
-    if (!formData.confirmPassword) errors.confirmPassword = true;
+    if (!formData.email) {
+      errors.email = true;
+    }
+    if (!formData.displayName) {
+      errors.displayName = true;
+    }
+    if (!formData.password) {
+      errors.password = true;
+    }
+    if (!formData.confirmPassword) {
+      errors.confirmPassword = true;
+    }
     if (
       formData.password &&
       formData.confirmPassword &&
@@ -74,10 +83,12 @@ const RegisterPage: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
     try {
       await register(formData.email, formData.password, formData.displayName);
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch {
       // erro já tratado pelo hook
     }
@@ -86,60 +97,60 @@ const RegisterPage: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        backgroundImage: "url(/wallpaper.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: '100vh',
+        backgroundImage: 'url(/wallpaper.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         p: 2,
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
           content: '""',
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(15, 15, 35, 0.7)",
+          backgroundColor: 'rgba(15, 15, 35, 0.7)',
           zIndex: 0,
         },
       }}
     >
-      <Container maxWidth="sm" sx={{ position: "relative", zIndex: 2 }}>
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2 }}>
         <Paper
           elevation={24}
           sx={{
             p: 4,
             borderRadius: 4,
-            background: "rgba(168, 85, 247, 0.08)",
-            backdropFilter: "blur(25px)",
-            border: "1px solid rgba(168, 85, 247, 0.15)",
-            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)",
+            background: 'rgba(168, 85, 247, 0.08)',
+            backdropFilter: 'blur(25px)',
+            border: '1px solid rgba(168, 85, 247, 0.15)',
+            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
           }}
         >
           <Box textAlign="center" mb={4}>
             <Box
               sx={{
-                fontSize: "4rem",
+                fontSize: '4rem',
                 mb: 2,
-                animation: "float 3s ease-in-out infinite",
+                animation: 'float 3s ease-in-out infinite',
               }}
             >
-              <Rocket sx={{ fontSize: "inherit", color: "primary.main" }} />
+              <Rocket sx={{ fontSize: 'inherit', color: 'primary.main' }} />
             </Box>
             <Typography
               variant="h3"
               component="h1"
               fontWeight="bold"
               sx={{
-                background: "linear-gradient(45deg, #c084fc, #f472b6, #a855f7)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                background: 'linear-gradient(45deg, #c084fc, #f472b6, #a855f7)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
                 mb: 1,
               }}
             >
@@ -167,7 +178,7 @@ const RegisterPage: React.FC = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{ '& .MuiInputLabel-root': { color: 'primary.main' } }}
               />
               <TextField
                 fullWidth
@@ -186,13 +197,13 @@ const RegisterPage: React.FC = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{ '& .MuiInputLabel-root': { color: 'primary.main' } }}
               />
               <TextField
                 fullWidth
                 label="Senha"
                 name="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="Sua senha"
@@ -210,20 +221,20 @@ const RegisterPage: React.FC = () => {
                         onClick={() => setShowPassword((v) => !v)}
                         disabled={loading}
                         edge="end"
-                        sx={{ color: "primary.main" }}
+                        sx={{ color: 'primary.main' }}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{ '& .MuiInputLabel-root': { color: 'primary.main' } }}
               />
               <TextField
                 fullWidth
                 label="Confirmar senha"
                 name="confirmPassword"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 placeholder="Confirme sua senha"
@@ -241,14 +252,14 @@ const RegisterPage: React.FC = () => {
                         onClick={() => setShowPassword((v) => !v)}
                         disabled={loading}
                         edge="end"
-                        sx={{ color: "primary.main" }}
+                        sx={{ color: 'primary.main' }}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
-                sx={{ "& .MuiInputLabel-root": { color: "primary.main" } }}
+                sx={{ '& .MuiInputLabel-root': { color: 'primary.main' } }}
               />
               {formData.password &&
                 formData.confirmPassword &&
@@ -264,13 +275,13 @@ const RegisterPage: React.FC = () => {
                 disabled={loading}
                 sx={{
                   py: 1.5,
-                  background: "linear-gradient(45deg, #a855f7, #ec4899)",
-                  "&:hover": {
-                    background: "linear-gradient(45deg, #9333ea, #db2777)",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 10px 25px rgba(168, 85, 247, 0.4)",
+                  background: 'linear-gradient(45deg, #a855f7, #ec4899)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #9333ea, #db2777)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 10px 25px rgba(168, 85, 247, 0.4)',
                   },
-                  transition: "all 0.3s ease",
+                  transition: 'all 0.3s ease',
                 }}
                 startIcon={
                   loading ? (
@@ -280,18 +291,18 @@ const RegisterPage: React.FC = () => {
                   )
                 }
               >
-                {loading ? "Criando..." : "Criar conta"}
+                {loading ? 'Criando...' : 'Criar conta'}
               </Button>
             </Stack>
           </Box>
           <Box mt={4}>
-            <Divider sx={{ borderColor: "rgba(168, 85, 247, 0.2)" }}>
+            <Divider sx={{ borderColor: 'rgba(168, 85, 247, 0.2)' }}>
               <Chip
                 label="Já tem uma conta?"
                 size="small"
                 sx={{
-                  backgroundColor: "rgba(168, 85, 247, 0.1)",
-                  color: "text.secondary",
+                  backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                  color: 'text.secondary',
                 }}
               />
             </Divider>
@@ -299,14 +310,14 @@ const RegisterPage: React.FC = () => {
               <Button
                 fullWidth
                 variant="outlined"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate('/login')}
                 startIcon={<Person />}
                 sx={{
-                  borderColor: "primary.main",
-                  color: "primary.main",
-                  "&:hover": {
-                    backgroundColor: "rgba(168, 85, 247, 0.1)",
-                    transform: "translateY(-2px)",
+                  borderColor: 'primary.main',
+                  color: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    transform: 'translateY(-2px)',
                   },
                 }}
               >

@@ -1,5 +1,5 @@
 // src/hooks/useSpaceX.ts
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 export interface SpaceXLaunch {
   id: string;
@@ -17,8 +17,8 @@ export interface SpaceXLaunch {
   upcoming: boolean;
 }
 
-const SPACEX_UPCOMING_URL = "https://api.spacexdata.com/v4/launches/upcoming";
-const SPACEX_LATEST_URL = "https://api.spacexdata.com/v4/launches/latest";
+const SPACEX_UPCOMING_URL = 'https://api.spacexdata.com/v4/launches/upcoming';
+const SPACEX_LATEST_URL = 'https://api.spacexdata.com/v4/launches/latest';
 
 export const useSpaceXLaunches = () => {
   const [upcomingLaunches, setUpcomingLaunches] = useState<SpaceXLaunch[]>([]);
@@ -35,11 +35,13 @@ export const useSpaceXLaunches = () => {
       // Buscar próximos lançamentos e último lançamento em paralelo
       const [upcomingResponse, latestResponse] = await Promise.all([
         fetch(SPACEX_UPCOMING_URL),
-        fetch(SPACEX_LATEST_URL)
+        fetch(SPACEX_LATEST_URL),
       ]);
 
       if (!upcomingResponse.ok) {
-        throw new Error(`SpaceX Upcoming API Error: ${upcomingResponse.status}`);
+        throw new Error(
+          `SpaceX Upcoming API Error: ${upcomingResponse.status}`
+        );
       }
 
       if (!latestResponse.ok) {
@@ -58,9 +60,9 @@ export const useSpaceXLaunches = () => {
       }
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Erro ao carregar dados da SpaceX"
+        err instanceof Error ? err.message : 'Erro ao carregar dados da SpaceX'
       );
-      console.error("Erro na SpaceX API:", err);
+      console.error('Erro na SpaceX API:', err);
     } finally {
       setLoading(false);
     }
