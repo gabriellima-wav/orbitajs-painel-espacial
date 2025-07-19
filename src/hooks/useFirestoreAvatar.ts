@@ -1,13 +1,7 @@
 import { auth, db } from '@/firebase/firebaseConfig';
 import { updateProfile } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from 'firebase/storage';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export function useFirestoreAvatar() {
   const [uploading, setUploading] = useState(false);

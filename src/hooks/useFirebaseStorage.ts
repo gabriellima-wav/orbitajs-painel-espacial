@@ -4,11 +4,10 @@ import {
   deleteObject,
   getDownloadURL,
   getStorage,
-  listAll,
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export function useFirebaseStorage() {
   const [uploading, setUploading] = useState(false);

@@ -2,8 +2,7 @@ import { auth } from '@/firebase/firebaseConfig';
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth';
 import { useFirestoreAvatar } from '@/hooks/useFirestoreAvatar';
 import { updateProfile } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useUserProfile() {
   const { user } = useFirebaseAuth();
@@ -44,7 +43,12 @@ export function useUserProfile() {
     setSuccess(null);
     setError(null);
     try {
-      await updateProfile(auth.currentUser!, {
+      if (!auth.currentUser) {
+        setError('Usuário não autenticado.');
+        setLoading(false);
+        return;
+      }
+      await updateProfile(auth.currentUser, {
         displayName,
       });
       setSuccess('Perfil atualizado com sucesso!');
