@@ -1,13 +1,12 @@
 import { auth } from '@/firebase/firebaseConfig';
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth';
-import { getFirebaseErrorMessage } from '@/utils/firebaseErrors';
 import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   sendPasswordResetEmail,
   updatePassword,
 } from 'firebase/auth';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export function usePasswordChange() {
   const { user } = useFirebaseAuth();
