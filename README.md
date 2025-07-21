@@ -322,6 +322,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **Gabriel Lima** - 2025
 
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [Gabriel Lima](https://linkedin.com/in/gabriel-lima)
+- GitHub: [@gabriellima-wav](https://github.com/gabriellima-wav)
+- LinkedIn: [Gabriel Lima](https://www.linkedin.com/in/contatogabriellima/)
 
